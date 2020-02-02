@@ -30,16 +30,26 @@ const getDetail = id => {
 }
 
 // 新增博客
-const createNew = data => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve()
-    }, 2000);
-  })
+const createBlog = blogData => {
+  return {
+    id: 2
+  }
+}
+
+// 更新博客
+const updateBlog = (id, blogData) => {
+  return true
+}
+
+// 删除博客
+const delBlog = id => {
+  return true
 }
 
 module.exports = {
 	getList,
   getDetail,
-  createNew
+  createBlog,
+  updateBlog,
+  delBlog
 }
