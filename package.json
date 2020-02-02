@@ -1,0 +1,24 @@
+{
+  "name": "nodeServerForBlog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev nodemon bin/start.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chasingsnail/nodeServerForBlog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chasingsnail/nodeServerForBlog/issues"
+  },
+  "homepage": "https://github.com/chasingsnail/nodeServerForBlog#readme",
+  "devDependencies": {
+    "cross-env": "^7.0.0"
+  }
+}
