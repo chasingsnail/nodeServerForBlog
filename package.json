@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/chasingsnail/nodeServerForBlog#readme",
   "devDependencies": {
-    "cross-env": "^7.0.0"
+    "cross-env": "^7.0.0",
+    "mysql": "^2.18.1"
   }
 }
