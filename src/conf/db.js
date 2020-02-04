@@ -2,16 +2,16 @@ const env = process.env.NODE_ENV
 
 const MYSQL_CONF_DEV = {
 	host: 'localhost',
-	user: 'chasingsnail',
-	password: 'azure2576',
+	user: 'root',
+	password: 'Azure2576',
 	port: '3306',
 	database: 'myblog'
 }
 
 const MYSQL_CONF_PRD = {
 	host: 'localhost',
-	user: 'chasingsnail',
-	password: 'azure2576',
+	user: 'root',
+	password: 'Azure2576',
 	port: '3306',
 	database: 'myblog'
 }

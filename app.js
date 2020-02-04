@@ -11,6 +11,9 @@ const getPostData = req => {
 				postData += chunk
 			})
 			req.on('end', () => {
+				if (!postData) {
+					return resolve({})
+				}
 				return resolve(
           JSON.parse(postData)
         )
@@ -27,11 +30,12 @@ const serverHandler = async(req, res) => {
 	const url = req.url
 	req.path = url.split('?')[0]
 
-  req.query = querystring.parse(url.split('?')[1])
+	req.query = querystring.parse(url.split('?')[1])
   
   req.body = await getPostData(req)
 
-	const blogData = handleBlogRouter(req, res)
+	const blogData = await handleBlogRouter(req, res)
+	console.log('blogData', blogData);
 	if (blogData) {
 		res.end(JSON.stringify(blogData))
 		return
