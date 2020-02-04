@@ -40,7 +40,7 @@ const serverHandler = async(req, res) => {
 		res.end(JSON.stringify(blogData))
 		return
 	}
-	const userData = handleUserRouter(req, res)
+	const userData = await handleUserRouter(req, res)
 	if (userData) {
 		res.end(JSON.stringify(userData))
 		return
