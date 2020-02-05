@@ -30,12 +30,22 @@ const serverHandler = async(req, res) => {
 	const url = req.url
 	req.path = url.split('?')[0]
 
+	// 解析 query 参数
 	req.query = querystring.parse(url.split('?')[1])
-  
+
+	// 解析 cookie
+	req.cookie = {}
+	const cookie = req.headers.cookie || ''
+	cookie.split(';').forEach(item => {
+		if (item) {
+			const kv = item.split('=')
+			req.cookie[kv[0].trim()] = kv[1].trim()
+		}
+	})
+
   req.body = await getPostData(req)
 
 	const blogData = await handleBlogRouter(req, res)
-	console.log('blogData', blogData);
 	if (blogData) {
 		res.end(JSON.stringify(blogData))
 		return
