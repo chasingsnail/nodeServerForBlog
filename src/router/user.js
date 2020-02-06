@@ -5,8 +5,8 @@ const { set } = require('../db/redis')
 const handleUserRouter = async(req, res) => {
   const method = req.method
 
-  if (method === 'GET' && req.path === '/api/user/login') {
-    const res = await login(req.query)
+  if (method === 'POST' && req.path === '/api/user/login') {
+    const res = await login(req.body)
     if (res.username) {
       req.session.username = res.username
       req.session.realname = res.realname
