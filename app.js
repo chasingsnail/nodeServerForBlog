@@ -2,6 +2,7 @@ const querystring = require('querystring')
 const handleBlogRouter = require('./src/router/blog')
 const handleUserRouter = require('./src/router/user')
 const { set, get } = require('./src/db/redis')
+const { access } = require('./src/utils/log')
 
 // session
 const SESSION_DATA = {}
@@ -34,7 +35,12 @@ const getPostData = req => {
 	})
 }
 
-const serverHandler = async(req, res) => {
+const serverHandler = async (req, res) => {
+	// 记录日志
+	access(
+		`${req.method} - ${req.url} - ${req.headers['user-agent']} - ${Date.now()}`
+	)
+
 	res.setHeader('Content-type', 'application/json')
 
 	const url = req.url
@@ -63,7 +69,7 @@ const serverHandler = async(req, res) => {
 		set(userId, {})
 	}
 	req.sessionId = userId
-	
+
 	const session = await get(userId)
 	if (session === null) {
 		set(userId, {})
@@ -74,9 +80,12 @@ const serverHandler = async(req, res) => {
 
 	req.body = await getPostData(req)
 
-	function checkUserId () {
-		if (!needSetCookie) return 
-		res.setHeader('Set-Cookie', `userid=${userId}; path=/; httpOnly; expires=${getCookieExpires()}`)
+	function checkUserId() {
+		if (!needSetCookie) return
+		res.setHeader(
+			'Set-Cookie',
+			`userid=${userId}; path=/; httpOnly; expires=${getCookieExpires()}`
+		)
 	}
 
 	const blogData = await handleBlogRouter(req, res)
@@ -91,6 +100,10 @@ const serverHandler = async(req, res) => {
 		res.end(JSON.stringify(userData))
 		return
 	}
+
+	res.writeHead(404, { 'Content-type': 'text/plain' })
+	res.write('404 Not Found\n')
+	res.end()
 }
 
 module.exports = serverHandler
